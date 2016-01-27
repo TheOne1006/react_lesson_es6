@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react</title>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.css">
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="/bower_components/react/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div class="container" id="content" ></div>
+</body>
+</html>
+<script type="text/jsx;harmony=true">
+
+class Comment extends React.Component {
+	render() {
+		return (
+			<div>
+				<span className='label label-primary'>
+					{this.props.author} say :
+				</span>
+				<p className='text-success' >
+					{this.props.children}
+				</p>
+			</div>
+		)
+	}
+}
+
+var commentArr = [
+	{author: 'theKing', body: 'this is a body'},
+	{author: 'theOne', body: 'this is next body'},
+	{author: 'theKing', body: 'bo la bo la '},
+]
+
+
+class CommentList extends React.Component {
+	render() {
+		console.log(this.props.comment);
+
+		var CommentNode = this.props.comment.map(function	(comment, index) {
+			return (
+				<Comment key={'comment'+index}  author={comment.author}>
+					{comment.body}
+				</Comment>
+			)
+		})
+		return (
+			<div>
+				{CommentNode}
+			</div>
+		);
+	}
+}
+
+class CommentForm extends React.Component {
+	render() {
+		return (
+			<div>
+			form
+			</div>
+		);
+
+	}
+}
+
+class CommentBox extends React.Component {
+	render() {
+		return (
+			<div>
+				<div className='panel panel-success'>
+					<div className='panel-heading'>
+						<h1>Comment</h1>
+					</div>
+
+					<div className="panel-body">
+						<CommentList comment={commentArr} />
+						<CommentForm />
+ 					</div>
+
+				</div>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<CommentBox />,
+	document.getElementById('content')
+);
+</script>

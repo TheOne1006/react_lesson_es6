@@ -1,0 +1,23 @@
+{
+  "name": "es6_react",
+  "version": "0.0.0",
+  "authors": [
+    "theone <297190869@qq.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.6",
+    "bootstrap": "~3.3.6"
+  }
+}
