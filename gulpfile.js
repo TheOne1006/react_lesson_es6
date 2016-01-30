@@ -14,10 +14,10 @@ gulp.task('browser-sync', function() {
         index: "index.html",
         directory: true,
         // Linux
-        browser: ["google-chrome"]
+        // browser: ["google-chrome"]
         // Mac
         // browser: ["Google Chrome", "firefox"]
-        // browser: ["Google Chrome"]
+        browser: ["Google Chrome"]
     });
 
 });

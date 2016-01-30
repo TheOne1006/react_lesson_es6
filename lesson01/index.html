@@ -5,6 +5,7 @@
 	<title>react</title>
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.css">
+	<script src="/bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
 	<script src="/bower_components/react/react.js" charset="utf-8"></script>
 	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
 	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
@@ -30,11 +31,6 @@ class Comment extends React.Component {
 	}
 }
 
-var commentArr = [
-	{author: 'theKing', body: 'this is a body'},
-	{author: 'theOne', body: 'this is next body'},
-	{author: 'theKing', body: 'bo la bo la '},
-]
 
 
 class CommentList extends React.Component {
@@ -57,17 +53,87 @@ class CommentList extends React.Component {
 }
 
 class CommentForm extends React.Component {
+
+	formHandSubmit(event) {
+			event.preventDefault();
+			console.log(this.refs.author);
+			const author = ReactDOM.findDOMNode(this.refs.author).value;
+			const body = ReactDOM.findDOMNode(this.refs.body).value.trim();
+			const form = ReactDOM.findDOMNode(this.refs.form);
+
+			this.props.onSubmit({author:author,body:body});
+			form.reset();
+	}
+
 	render() {
 		return (
 			<div>
-			form
+				<form className='form-horizonta' ref='form' onSubmit={e => {this.formHandSubmit(e)}}>
+				<div classClass="form-group">
+				 <label > Username: < /label>
+				 <input ref='author' type="text" classClass="form-control"  placeholder="author" />
+				</div>
+				<div classClass="form-group">
+				 <label> Comment: < /label>
+				 <input ref='body' type="text" classClass="form-control" placeholder="body" />
+				</div>
+
+				<div classClass="form-group">
+				 <input type="submit" classClass="form-control" value='提交'/>
+				</div>
+
+				</form>
 			</div>
 		);
 
 	}
 }
 
+var otherArr = [
+	{author: 'theKing', body: 'this is a body'}
+]
+
+var commentArr = [
+	{author: 'theKing', body: 'this is a body'},
+	{author: 'theOne', body: 'this is next body'},
+	{author: 'theKing', body: 'bo la bo la '},
+]
+
+
 class CommentBox extends React.Component {
+	/**
+	 * 构造函数,第一个参数为props
+	 * @param  {[type]} props [description]
+	 */
+	constructor(props) {
+		super();
+		this.state = {
+			comments:props.comment
+		}
+	}
+
+	componentDidMount() {
+		// 渲染完成
+		$.ajax({
+			url: this.props.url,
+			dataType: 'json'
+		})
+		// 匿名构造函数, 并保持 this
+		.done((data) => {
+			this.setState({comments:data});
+		})
+	}
+
+	// commentForm 提交
+	handleNewComment(commentObj) {
+		// 模拟ajax
+		console.log(commentObj);
+
+		this.state.comments.push(commentObj)
+		this.setState({
+			comments: this.state.comments
+		});
+	}
 	render() {
 		return (
 			<div>
@@ -77,8 +143,8 @@ class CommentBox extends React.Component {
 					</div>
 
 					<div className="panel-body">
-						<CommentList comment={commentArr} />
-						<CommentForm />
+						<CommentList comment={this.state.comments} />
+						<CommentForm  onSubmit={(comment)=> {this.handleNewComment(comment)}}/>
  					</div>
 
 				</div>
@@ -87,8 +153,10 @@ class CommentBox extends React.Component {
 	}
 }
 
-ReactDOM.render(
-	<CommentBox />,
+
+var box = ReactDOM.render(
+	<CommentBox comment={otherArr} url='./json.json'/>,
 	document.getElementById('content')
 );
+
 </script>
