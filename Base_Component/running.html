@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react  运行中阶段</title>
+	<script src="/bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+'use strict';
+let style = {
+	color: "red",
+	border: "1px #000 solid"
+};
+
+class HelloWorld extends React.Component {
+	// 构造函数
+	constructor(props) {
+		super(props);
+	}
+
+	componentWillReceiveProps() {
+		console.log('componentWillReceiveProps');
+	}
+	/**
+	 * 性能提升可用,慎用
+	 */
+	shouldComponentUpdate() {
+		console.log('shouldComponentUpdate');
+		return true;
+	}
+	/**
+	 * 减少干预,尽量少用
+	 */
+	componentWillUpdate() {
+		console.log('componentWillUpdate');
+	}
+	/**
+	 * 可以操作DOM
+	 */
+	componentDidUpdate() {
+		console.log('componentDidUpdate');
+	}
+
+	render() {
+		return (
+			<div>
+				<h1 style={style}> HELLO { (this.props && this.props.val) || 'WORLD'} </h1>
+			</div>
+		);
+	}
+
+}
+
+class HelloF extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			val: ''
+		}
+	}
+
+	handleChange(e) {
+		this.setState({
+			val: e.target.value
+		})
+	}
+
+
+	render() {
+		return (
+			<div>
+			 <HelloWorld val={this.state.val} />
+			 <input type='text' onChange={(e) => {this.handleChange(e)} } />
+			</div>
+		);
+	}
+}
+
+ReactDOM.render( <HelloF />,
+	document.getElementById('content')
+	);
+
+</script>

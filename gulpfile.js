@@ -25,7 +25,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watchFile', function(){
 
     gulp.watch([
-			'lesson01/*.*',
+			'**/*.*',
       ])
       .on('change', reload);
 });
