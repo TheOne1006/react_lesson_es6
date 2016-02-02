@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react animate 0.13</title>
+
+	<style>
+
+	.example-enter {
+	  opacity: 0.01;
+	}
+
+	.example-enter.example-enter-active {
+	  opacity: 1;
+	  transition: opacity 500ms ease-in;
+	}
+
+	.example-leave {
+	  opacity: 1;
+	}
+
+	.example-leave.example-leave-active {
+	  opacity: 0.01;
+	  transition: opacity 300ms ease-in;
+	}
+
+	</style>
+	<!-- <script src="/bower_components/react/react.js" charset="utf-8"></script> -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js" charset="utf-8"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+class TodoList extends React.Component {
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			items : ['hello', 'world', 'bar', 'foo']
+		}
+	}
+
+	handleAdd() {
+		var newItem = this.state.items;
+		newItem.push(prompt('Enter some text'));
+
+		// console.log(newItem);
+		this.setState({
+			items: newItem
+		})
+	}
+
+	handleRemove(i) {
+		var newItem = this.state.items;
+		newItem.splice(i,1);
+		this.setState({
+			items:newItem
+		})
+	}
+
+	render() {
+		var items = this.state.items.map(function	(item, i) {
+			return (
+				<div key={item} onClick={(i)=>this.handleRemove(i)}>
+				{item}
+				</div>
+			)
+		}.bind(this))
+
+
+		return (<div>
+				<button onClick={()=>this.handleAdd()} > add item </button>
+				<div>
+					<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500} >
+						{items}
+					</ReactCSSTransitionGroup>
+				</div>
+
+			</div>)
+
+
+	}
+}
+
+React.render( <TodoList />,
+	document.getElementById('content')
+	);
+
+</script>
