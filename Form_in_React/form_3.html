@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react 自定义表单组件</title>
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+class Radio extends React.Component {
+  constructor(props) {
+    super(props);
+    if(!props.val) {
+      this.state = {val : ''};
+    }
+  }
+
+  handleChange(event) {
+
+    if(this.props.onChange) {
+      this.props.onChange(event);
+    }
+
+    this.setState({
+      val: event.target.value
+    })
+  }
+
+
+  render() {
+    var children = [];
+
+    // 尝试从父组件设置的props 获取val
+    var value = this.props.val || this.state.val;
+
+    // console.log(this.props.children);
+    React.Children.forEach(this.props.children, function (child, i) {
+      // console.log(child);
+      var label = (<label key={'raido'+this.props.name+i} >
+        <input type='radio' name={this.props.name} value={child.props.value} checked={child.props.value == value} onChange={(e)=>this.handleChange(e)}  />
+        {child.props.children}
+      </label>);
+      children.push(label);
+    }.bind(this));
+
+    return (<div>{children}</div>);
+  }
+}
+
+class FormComponent extends React.Component {
+  constructor() {
+    this.state = {
+      val: 'mac'
+    }
+  }
+  handleChange(event) {
+
+    this.setState({
+      val:event.target.value
+    });
+  }
+
+
+  submitHandle(event) {
+    event.preventDefault();
+    console.log(this.state);
+  }
+
+
+  render() {
+    return (
+      <form onSubmit={(e)=>this.submitHandle(e)} >
+        <div>
+          <Radio name='product' val={this.state.val} onChange={(e)=>this.handleChange(e)} >
+            <option value='mac'> mac </option>
+            <option value='phone'> phone </option>
+            <option value='table'> table </option>
+          </Radio>
+        </div>
+
+        <div>
+          <input type='submit' value='提交' />
+        </div>
+      </form>
+    )
+  }
+}
+
+ReactDOM.render( <FormComponent />,
+	document.getElementById('content')
+	);
+
+</script>

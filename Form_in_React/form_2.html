@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react 复用事件处理函数</title>
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+class FormComponent extends React.Component {
+  constructor() {
+    this.state = {
+      username : '',
+      gender   : 'woman',
+      checked  : true
+    }
+  }
+  handleChange(event, name) {
+    // 构造对象
+    var newState = {};
+    newState[name] = (name == 'checked') ? event.target.checked : event.target.value;
+
+    this.setState(newState);
+  }
+
+
+  submitHandle(event) {
+    event.preventDefault();
+    console.log(this.state);
+  }
+
+
+  render() {
+    return (
+      <form onSubmit={(e)=>this.submitHandle(e)} >
+        <div>
+          <label htmlFor='username'>
+            用户名:
+          </label>
+          <input id='username' type='text' name='username' value={this.state.username} onChange={(e) => this.handleChange(e, 'username')} />
+        </div>
+        <div>
+          <label htmlFor='gender'>
+            性别:
+          </label>
+          <select name='gender' value={this.state.gender} onChange={(e) => this.handleChange(e, 'gender')}>
+            <option value='man'> 男</option>
+            <option value='woman'> 女</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='checked'>
+            是否统一协议:
+          </label>
+           <input id='checked' type="checkbox" checked={this.state.checked} onChange={(e)=> this.handleChange(e, 'checked')} />
+        </div>
+
+        <div>
+          <input type='submit' value='提交'/>
+        </div>
+      </form>
+    )
+  }
+}
+
+ReactDOM.render( <FormComponent />,
+	document.getElementById('content')
+	);
+
+</script>
