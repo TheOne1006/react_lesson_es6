@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react js Mixin</title>
+
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-with-addons.js" charset="utf-8"></script>
+
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+class GenderSelect extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <select name='gender' onChange={(e)=>this.props.handleGenderChange(e)}>
+        <option value='man'>男 </option>
+        <option value='woman'>女 </option>
+      </select>
+    )
+  }
+}
+
+class FormComponent extends React.Component {
+  constructor() {
+    this.state = {
+      username: '',
+      pwd: '',
+      gender: 'man'
+    }
+  }
+
+  handleChange(event, name) {
+    var newState = {};
+    newState[name] = event.target.value;
+    this.setState(newState);
+  }
+
+  handleGenderChange(event) {
+    this.setState({
+      gender: event.target.value
+    })
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <form >
+        <div>
+          username: <input type='text' name='username' onChange={(e)=>this.handleChange(e, 'username')} />
+        </div>
+        <div>
+          pwd: <input type='password' name='password' onChange={(e)=>this.handleChange(e, 'pwd')} />
+        </div>
+        <div>
+          性别: <GenderSelect handleGenderChange={(e)=>this.handleGenderChange(e)} />
+        </div>
+
+      </form>
+    )
+  }
+}
+
+ReactDOM.render( <FormComponent />,
+	document.getElementById('content')
+	);
+
+
+</script>
