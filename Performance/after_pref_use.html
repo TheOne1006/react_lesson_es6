@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react js after_pref_use 0.13</title>
+
+	<style>
+  .position {
+    float: left;
+    margin-top: 30px;
+  }
+	</style>
+  <!--
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-with-addons.js" charset="utf-8"></script>
+  -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js" charset="utf-8"></script>
+	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-dom.js" charset="utf-8"></script> -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js" charset="utf-8"></script>
+	<script src="http://cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<pre>
+		<h3>使用方法:</h3>
+		打开console ,
+		Ract.addons.Pref.start() //开始记录
+		... 执行一步操作
+		Ract.addons.Pref.stop() // 技术记录
+		React.addons.Pref.printInclusive(); // 查看结果
+	</pre>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+class NumberDiv extends React.Component {
+  constructor(props) {
+
+    super(props);
+    this.state = {
+			number : props.number
+		}
+  }
+  shouldComponentUpdate( nextProps) {
+    return nextProps.render;
+  }
+
+  render() {
+    var style = {
+      height     : "100px",
+      width      : "100px",
+			float      : "left",
+			margin     : "10px",
+			background : "gray",
+    };
+
+		var choseStyle = {
+			height     : "100px",
+			width      : "100px",
+			float      : "left",
+			margin     : "10px",
+			background : "red",
+		};
+
+		return (
+			<div style={this.state.number == this.props.choseNumber ? choseStyle : style} >
+				{this.state.number}
+			</div>
+		);
+
+  }
+}
+
+class ChoseNumber extends React.Component {
+	constructor() {
+		this.state = {
+			inputNumber: -1,
+			lastNumber: -1 //优化使用
+		}
+	}
+
+	handleChange(e) {
+		this.setState({
+			inputNumber: e.target.value,
+			lastNumber: this.state.inputNumber
+		});
+	}
+
+
+	render() {
+		var inputStyle = {
+			display: "block",
+			clear: "both",
+			width: "200px",
+			marginBottom: "10px"
+		}
+
+		var children = [];
+
+		for(var i = 0; i< 5000; i++) {
+      // 低效版本
+			// children.push(<NumberDiv key={i} number={i} choseNumber={this.state.inputNumber} /> )
+
+      // 手动判断版本
+      children.push(<NumberDiv　render={this.state.inputNumber == i || this.state.lastNumber == i} key={i} number={i} choseNumber={this.state.inputNumber} /> )
+		}
+
+		return (
+			<div>
+				<input style={inputStyle} type='text'  onChange={(e)=>this.handleChange(e)} />
+				{children}
+			</div>
+		)
+	}
+}
+
+React.render( <ChoseNumber />,
+	document.getElementById('content')
+	);
+
+
+</script>

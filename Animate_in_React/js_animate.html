@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react js animate 0.13</title>
+
+	<style>
+  .position {
+    float: left;
+    margin-top: 30px;
+  }
+	</style>
+  <script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;harmony=true">
+
+class Positioner extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      position: 0
+    }
+  }
+
+  resolveSetTimeout() {
+    if( this.state.position < this.props.position) {
+      this.setState({
+        position : this.state.position + 1
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    if(this.props.position) {
+      setTimeout(()=>this.resolveSetTimeout(), this.props.timeoutMs);
+    }
+  }
+
+  render() {
+    var divStyle = {
+      marginLeft : this.state.position+'px'
+    };
+
+    return (
+      <div className='position' style={divStyle}>
+        This will animate
+      </div>
+    );
+  }
+}
+
+ReactDOM.render( <Positioner />,
+	document.getElementById('content')
+	);
+// componetn 更新触发 componentDidUpdat 方法
+ReactDOM.render( <Positioner position={100} timeoutMs={20}/>,
+	document.getElementById('content')
+	);
+
+</script>
