@@ -58,3 +58,9 @@ event 如果操作事件对象
 
 1. 组件的嵌套
 2. Mixin
+
+### tool 开发工具
+
+1. gulp
+2. browserify
+3. webpack

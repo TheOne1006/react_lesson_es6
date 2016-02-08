@@ -16,64 +16,32 @@
 </html>
 <script  type="text/jsx;harmony=true">
 
-class GenderSelect extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <select name='gender' onChange={(e)=>this.props.handleGenderChange(e)}>
-        <option value='man'>男 </option>
-        <option value='woman'>女 </option>
-      </select>
-    )
-  }
+class Bind extends React.Component {
+	constructor() {
+		this.state = {
+			text: ''
+		}
+	}
+	handleChange(event) {
+		this.setState({
+			text: event.target.value
+		})
+	}
+	render() {
+		return (
+			<div>
+				<input type='text' onChange={(e)=>this.handleChange(e)} />
+				<div>
+					{this.state.text}
+				</div>
+			</div>);
+	}
 }
 
-class FormComponent extends React.Component {
-  constructor() {
-    this.state = {
-      username: '',
-      pwd: '',
-      gender: 'man'
-    }
-  }
-
-  handleChange(event, name) {
-    var newState = {};
-    newState[name] = event.target.value;
-    this.setState(newState);
-  }
-
-  handleGenderChange(event) {
-    this.setState({
-      gender: event.target.value
-    })
-  }
-
-  render() {
-    console.log(this.state);
-    return (
-      <form >
-        <div>
-          username: <input type='text' name='username' onChange={(e)=>this.handleChange(e, 'username')} />
-        </div>
-        <div>
-          pwd: <input type='password' name='password' onChange={(e)=>this.handleChange(e, 'pwd')} />
-        </div>
-        <div>
-          性别: <GenderSelect handleGenderChange={(e)=>this.handleGenderChange(e)} />
-        </div>
-
-      </form>
-    )
-  }
-}
-
-ReactDOM.render( <FormComponent />,
+ReactDOM.render( <Bind />,
 	document.getElementById('content')
 	);
+	// 未完待续
 
 
 </script>

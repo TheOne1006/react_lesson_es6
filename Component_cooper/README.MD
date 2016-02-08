@@ -61,5 +61,9 @@ Mixin Class 定义的方法，会混入组件中( 覆盖,附加 ?)
 2. 降低代码的可读性：Mixin本质上会分散逻辑，理解难度大．
 
 
+使用方法:  
+1. createClass 中
+2. ES6 ???
 
-#### React 双向绑定和 Mixin 源码阅读
+
+#### React 双向绑定Mixin 源码阅读
