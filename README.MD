@@ -59,6 +59,12 @@ event 如果操作事件对象
 1. 组件的嵌套
 2. Mixin
 
+### React 相关库
+
+1. jest
+2. ImmutableJs
+3. Flux
+
 ### tool 开发工具
 
 1. gulp
