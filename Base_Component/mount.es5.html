@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react 初始化阶段</title>
+	<script src="/bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx">
+'use strict';
+let style = {
+	color: "blue",
+	border: "1px #000 solid"
+};
+
+var HelloWorld = React.createClass({
+	getDefaultProps: function() {
+		console.log('getDefaultProps');
+	},
+	getInitialState: function() {
+		console.log('getInitialState');
+		return null;
+	},
+	componentWillMount: function() {
+		console.log('componentWillMount');
+	},
+	componentDidMount: function() {
+		console.log('componentDidMount');
+	},
+	render: function() {
+		return (
+			<div>
+				<h1 style={style}> HELLO WORLD </h1>
+			</div>
+		);
+	}
+});
+
+ReactDOM.render( <HelloWorld />,
+	document.getElementById('content')
+	);
+
+</script>
