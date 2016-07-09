@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react From</title>
+	<script src="/bower_components/react/react.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-dom.js" charset="utf-8"></script>
+	<script src="/bower_components/react/react-with-addons.js" charset="utf-8"></script>
+	<script src="//cdn.bootcss.com/react/0.13.3/JSXTransformer.js" charset="utf-8"></script>
+</head>
+<body>
+	<div id="content"></div>
+</body>
+</html>
+<script  type="text/jsx;">
+
+var MyForm = React.createClass({
+  mixins: [React.addons.LinkedStateMixin],
+  getInitialState: function() {
+    return {
+      my_radio: "B"
+    }
+  },
+  submitHandler: function(event) {
+    event.preventDefault();
+    console.log(this.state);
+  },
+  render: function() {
+    return (
+      <form onSubmit={this.submitHandler}>
+        <select name="my_radio"
+          valueLink={this.linkState('my_radio')} >
+          <option value="A"> first option </option>
+          <option value="B"> second option </option>
+          <option value="C"> third option </option>
+        </select>
+        <button type="submit"> speack </button>
+      </form>
+    );
+  }
+})
+
+ReactDOM.render( <MyForm />,
+	document.getElementById('content')
+	);
+
+</script>

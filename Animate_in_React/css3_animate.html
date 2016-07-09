@@ -78,7 +78,10 @@ class TodoList extends React.Component {
 		return (<div>
 				<button onClick={()=>this.handleAdd()} > add item </button>
 				<div>
-					<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={500} >
+					<ReactCSSTransitionGroup
+						transitionName="example"
+						transitionEnterTimeout={500}
+						transitionLeaveTimeout={500} >
 						{items}
 					</ReactCSSTransitionGroup>
 				</div>
