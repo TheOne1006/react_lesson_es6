@@ -2,10 +2,10 @@
 
 ### 性能调优原理
 
-为什么需要调优?
-调优的最佳时机
-React调优原理
-JS数据类型介绍
+- 为什么需要调优?
+- 调优的最佳时机
+- React调优原理
+- JS数据类型介绍
 
 1. 为什么需要调优:
    1. React 在开发就非常注重性能, 作为前端框架,是极其重要的判断
@@ -43,9 +43,27 @@ JS数据类型介绍
 
 ### 如何解决性能问题
 
-PureRenderMixin: React 官方提供的Mixin, 用于　"简单的"　判断是否需要更新流程
+
+> shouldComponentUpdate:
+- 当组件更新时, 无论是新 props 还是 setState 或者 forceUpdate 方法, React 都会调用所有子组件的 render 方法. 在大多数时候这样是没有问题的, 但是在树嵌套较深的组件中, 可能会有延迟.  
+- __返回__ : boolean ,
+- false 不要调用组件渲染方法, 并使用之前渲染好的虚拟 DOM,
+- 默认返回 true, 重新计算虚拟 DOM
+- __参数__ : 两个 `nextProps` 和 `nextState`
+
+> PureRenderMixin: React 官方提供的Mixin, 用于　"简单的"　判断是否需要更新流程
 只能处理非对象数据．
 
 Immutability Helpers: 实现Js不可变对象　　
 1. 修改不可变对象会返回一个新对象，之前的对象保持不变
 2. 不同对象在Js引擎中的引用不同，因此直接比较引用即可确定是否发生了改变．
+
+
+> Immutable
+
+
+
+
+
+
+- - -

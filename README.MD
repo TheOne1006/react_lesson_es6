@@ -58,7 +58,7 @@ event 如果操作事件对象
 ### Animate in React
 
 
-### 组件性能部分
+### 组件性能部分 Performance
 1. 为什么要调优
 2. 如何调优
 3. 调优工具
