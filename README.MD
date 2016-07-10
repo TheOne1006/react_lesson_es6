@@ -68,6 +68,12 @@ event 如果操作事件对象
 1. 组件的嵌套
 2. Mixin
 
+### 服务器渲染 render in Server
+
+- 渲染函数
+
+
+
 ### React 相关库
 
 1. jest
