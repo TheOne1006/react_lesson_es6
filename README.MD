@@ -72,13 +72,24 @@ event 如果操作事件对象
 
 - 渲染函数
 
-
-
 ### React 相关库
 
 1. jest
 2. ImmutableJs
 3. Flux
+
+#### Flux
+
+Flux 由实现特定功能的几个部分组成.在单向数据流当中, flux 的那个部分获取上游输入的内容进行处理,然后向下游发送他的输出内容.  
+
+- Dispatcher: 应用的中心仓库
+- Action: 应用的 DSL( Domain Specific Language)(领域特定语言)
+- Store: 业务逻辑和数据交互
+- 视图: 渲染应用组件树
+
+
+
+
 
 ### tool 开发工具
 
