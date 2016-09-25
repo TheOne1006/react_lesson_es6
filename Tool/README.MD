@@ -2,7 +2,6 @@
 
 案例
 
-1.
 
 
 ## browserify
